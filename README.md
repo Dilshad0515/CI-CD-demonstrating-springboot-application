@@ -1,117 +1,83 @@
-# Combined Spring Boot + React Monorepo
+# Full Stack CI/CD Pipeline: Spring Boot + React + GitHub Actions + Render
 
-**Purpose:** A template monorepo that combines a Spring Boot backend and a React frontend with optimized CI/CD, multi-stage Dockerfiles, and modern frontend design (Tailwind).  
-**Notes:** Replace placeholders (YOUR_NAME, YOUR_EMAIL, YOUR_REGISTRY, YOUR_SECRETS) with your own information. Add project-specific docs where indicates.
+This repository demonstrates a complete end-to-end CI/CD pipeline for a full-stack application.  
+The backend is deployed as a containerized service on Render, and the frontend is deployed to GitHub Pages.
 
-## Structure
-```
-/ (repo root)
-├─ backend/            # Spring Boot app (Maven)
-├─ frontend/           # React app (Vite + React + Tailwind)
-├─ .github/workflows/  # CI/CD workflows
-├─ Dockerfile.backend
-├─ Dockerfile.frontend
-├─ README.md
-├─ CONTRIBUTING.md
-```
+The project is structured as a monorepo and includes automated builds, testing, and deployment workflows.
 
-## Quick start (local)
+## 1. Features
+
+- Spring Boot backend with JWT authentication
+- React frontend built using Vite and Tailwind CSS
+- Automated CI/CD using GitHub Actions
+- Backend deployment through Render Web Service
+- Frontend deployment to GitHub Pages
+- Dockerized backend using production-ready Dockerfile
+- Live URLs for instant testing
+
+## 2. Repository Layout
+
+backend/ Spring Boot API
+frontend/ React + Vite UI
+.github/workflows/ CI/CD pipelines
+Dockerfile.backend Backend build for Render
+
+
+## 3. Live Deployments
+
+Frontend  
+https://dilshad0515.github.io/CI-CD-demonstrating-springboot-application/
+
+Backend  
+Hosted on Render  
+(Accessible through the API URL configured in the frontend)
+
+## 4. Local Development Instructions
+
 ### Backend
-```bash
+
 cd backend
-./mvnw spring-boot:run
-# or build: mvn -B clean package
-```
+mvn spring-boot:run
+
 
 ### Frontend
-```bash
+
 cd frontend
 npm install
 npm run dev
-```
-
-## CI / CD
-- GitHub Actions workflows included: `.github/workflows/ci-cd-root.yml`
-- Customize secrets: `DOCKER_REGISTRY`, `DOCKER_USERNAME`, `DOCKER_PASSWORD`, etc.
-
-## Personalization
-- Update README author details.
-- Replace `app.properties` placeholders with real values.
-- Add your tests and production configuration.
-
-**Author:** YOUR_NAME (replace in files)
 
 
-## CI/CD - Secrets & Deployment
+## 5. CI/CD Workflows
 
-To enable pushing images to GitHub Container Registry (GHCR), add repository secrets:
-- `GHCR_TOKEN` — Personal Access Token with `write:packages` and `read:packages` scopes.
+### Frontend Workflow
+- Installs Node dependencies
+- Builds frontend using Vite
+- Deploys output to `gh-pages` branch
+- GitHub Pages serves static files
 
-To enable Docker Hub pushes:
-- `DOCKERHUB_USERNAME`
-- `DOCKERHUB_TOKEN`
+### Backend Workflow
+- Triggered on each push to main
+- Calls Render API to start a new deploy
+- Render builds using Dockerfile.backend
+- Service auto-updates
 
-Frontend environment for Vite:
-- Set `VITE_API_BASE_URL` in GitHub Actions or in `.env` for production builds.
+## 6. Required GitHub Secrets
 
-## Local development
-
-Start both apps via Docker Compose:
-```bash
-docker-compose up --build
-# Backend on http://localhost:8080
-# Frontend on http://localhost:3000
-```
-
-## What I added for you
-- OpenAPI (springdoc) dependency and config. Visit `/swagger-ui.html` after starting backend.
-- Basic unit test for backend and a React testing placeholder.
-- Docker Compose for local integration testing.
-- CI steps to optionally push images to GHCR/Docker Hub when secrets are configured.
-
-Replace placeholders (YOUR_NAME, YOUR_EMAIL) in files before publishing publicly.
+RENDER_SERVICE_ID (from Render service dashboard)
+RENDER_API_KEY (from Render account settings)
+JWT_SECRET (backend token signing secret)
 
 
-## Deploy backend to Render (free)
-1. Sign up at https://render.com (free tier works).
-2. Create a new Web Service and connect your GitHub repository.
-3. Choose Docker as the build type and point to `Dockerfile.backend`.
-4. Set environment variables:
-   - `JWT_SECRET` (secure random string)
-   - (Optional) Postgres connection variables if you use Postgres
-5. Render will build and deploy automatically on push to `main`.
+## 7. Technologies Used
 
-This approach gives you full CI/CD experience with Render's free tier.
+Backend  
+Spring Boot, Spring Security, JWT, Spring Data JPA, PostgreSQL, Maven
 
-## Create a new repo with clean history (recommended)
-To publish this project under a **new GitHub repository** that shows only your commits (clean history), run:
+Frontend  
+React, Vite, Tailwind CSS, Axios, React Router
 
-```bash
-# from the local repo root (after you've customized files and replaced placeholders)
-rm -rf .git
-git init
-git add .
-git commit -m "Initial commit - personalized by YOUR_NAME"
-# create repo on GitHub and then:
-git branch -M main
-git remote add origin git@github.com:YOUR_GITHUB_USERNAME/NEW_REPO_NAME.git
-git push -u origin main
-```
+DevOps  
+GitHub Actions, GitHub Pages, Render, Docker
 
-This will create a repo where the history starts with your commit only. Replace `YOUR_GITHUB_USERNAME` and `NEW_REPO_NAME` accordingly.
-
-
-
-## Automated Render deployment via GitHub Actions
-
-The repo includes a workflow `.github/workflows/deploy-to-render.yml` that triggers a Render deploy on pushes to `main`. To enable it:
-
-1. Create a Render service for the backend (Web Service) and note its `SERVICE ID` from the Render dashboard (Settings -> Service ID).
-2. Create a Render API key: Account -> API Keys -> New API Key (keep it secret).
-3. Add the following repository secrets in GitHub:
-   - `RENDER_SERVICE_ID` — your service id for the backend
-   - `RENDER_API_KEY` — your Render API key
-
-The workflow will call Render's API to create a deploy for the specified service. Render will then build and deploy the service using the `Dockerfile.backend` in repo root.
-
-Note: You can also connect Render directly to GitHub (recommended) to enable auto-deploys without API tokens.
+## 8. Author  
+Dilshad Shaik
