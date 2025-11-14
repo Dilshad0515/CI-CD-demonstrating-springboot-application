@@ -18,9 +18,14 @@ jobs:
         with:
           node-version: 18
 
-      - name: Install dependencies
+      - name: Clean & Install dependencies
         working-directory: ./frontend
-        run: npm install --legacy-peer-deps
+        run: |
+          rm -rf node_modules
+          rm -f package-lock.json
+          npm cache clean --force
+          npm install --legacy-peer-deps
+          npm install lines-and-columns@1.2.4
 
       - name: Build
         working-directory: ./frontend
