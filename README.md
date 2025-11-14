@@ -1,7 +1,7 @@
 # Combined Spring Boot + React Monorepo
 
 **Purpose:** A template monorepo that combines a Spring Boot backend and a React frontend with optimized CI/CD, multi-stage Dockerfiles, and modern frontend design (Tailwind).  
-**Notes:** Replace placeholders (YOUR_NAME, YOUR_EMAIL, YOUR_REGISTRY, YOUR_SECRETS) with your own information. Add project-specific docs where indicated.
+**Notes:** Replace placeholders (YOUR_NAME, YOUR_EMAIL, YOUR_REGISTRY, YOUR_SECRETS) with your own information. Add project-specific docs where indicates.
 
 ## Structure
 ```
